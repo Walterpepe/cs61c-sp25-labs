@@ -3,3 +3,50 @@
 # Lines starting with # are comments, feel free to add any to document your commands
 
 # Please add your commands below this line
+(gdb) start
+Temporary breakpoint 1 at 0x1000037a2: file test_pwd_checker.c, line 6.
+Starting program: /Users/liyu/Documents/ucb/cs61c/sp25/cs61c-sp25-labs/lab02/pwd_checker
+[New Thread 0x2003 of process 30184]
+[New Thread 0x2803 of process 30184]
+warning: unhandled dyld version (17)
+
+Thread 2 hit Temporary breakpoint 1, main () at test_pwd_checker.c:6
+6           printf("Running tests...\n\n");
+(gdb) n
+Running tests...
+
+8           const char *test1_first = "Abraham";
+(gdb)
+9           const char *test1_last = "Garcia";
+(gdb)
+10          const char *test1_pwd = "qrtv?,mp!ltrA0b13rab4ham";
+(gdb)
+11          bool test1 = check_password(test1_first, test1_last, test1_pwd);
+(gdb) s
+check_password (first_name=0x100003e6d "Abraham", last_name=0x100003e75 "Garcia",
+    password=0x100003e7c "qrtv?,mp!ltrA0b13rab4ham") at pwd_checker.c:83
+83          lower = check_lower(password);
+(gdb) s
+check_lower (password=0x100003e7c "qrtv?,mp!ltrA0b13rab4ham") at pwd_checker.c:48
+48          while (*password != '\0') {
+(gdb) p password
+$1 = 0x100003e7c "qrtv?,mp!ltrA0b13rab4ham"
+(gdb) fin
+Run till exit from #0  check_lower (password=0x100003e7c "qrtv?,mp!ltrA0b13rab4ham") at pwd_checker.c:48
+0x0000000100003dad in check_password (first_name=0x100003e6d "Abraham", last_name=0x100003e75 "Garcia",
+    password=0x100003e7c "qrtv?,mp!ltrA0b13rab4ham") at pwd_checker.c:83
+83          lower = check_lower(password);
+Value returned is $2 = true
+(gdb) n
+84          length = check_length(password);
+(gdb) s
+check_length (password=0x100003e7c "qrtv?,mp!ltrA0b13rab4ham") at pwd_checker.c:23
+23          int length = strlen(password);
+(gdb) n
+24          bool meets_len_req = (length <= 10);
+(gdb)
+25          return meets_len_req;
+(gdb) p meets_len_req
+$3 = false
+(gdb) p length
+$4 = 24
